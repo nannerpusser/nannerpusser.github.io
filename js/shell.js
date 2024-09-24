@@ -431,6 +431,7 @@ var core = {
 		else this.activateInput();
 	},
 
+    
 	runCommand: function(inputArray, processID) {
 		if (commands[inputArray[0]]) {
 			var commandAnswer = commands[inputArray[0]].action(inputArray, processID);
@@ -475,6 +476,26 @@ var core = {
 		window.scrollTo(0,document.body.scrollHeight);
 
 	},
+
+    quit: function() {
+        if (this.vars.activePID) {
+            this.output('Process ' + this.vars.activePID + ' terminated', false, this.vars.activePID);
+            this.vars.activePID = false;
+        }
+
+        this.vars.inputActive = false;
+        $('#input-wrap').hide();
+        $('#input').val('').focus();
+
+        this.clearOutput();
+    
+        this.vars.inputHistory = [];
+        this.vars.inputHistoryPosition = null;
+        this.vars.inputHistory = [];;
+
+        return true;
+    },
+
 
     quitRun: function() {
         this.vars.activePID = false;
